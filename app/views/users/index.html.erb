@@ -1,2 +1,22 @@
-<h1>Users#index</h1>
-<p>Find me in app/views/users/index.html.erb</p>
+<h1>ユーザー一覧</h1>
+<%= link_to "CSVエクスポート", users_path(format: :csv) %>
+<%= form_with url: import_path do |form| %>
+  <%= form.file_field :file, accept: "text/csv" %>
+  <%= form.submit "CSVインポート" %>
+<% end %>
+<table>
+  <thead>
+    <tr>
+      <th scope="col">氏名</th>
+      <th scope="col">年齢</th>
+      <th scope="col">身長</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= @users.each.with_index(1) do |user, i| %>
+      <td><%= user.name %></td>
+      <td><%= user.age %></td>
+      <td><%= user.height %></td>
+    <% end %>
+  </tbody>
+</table>
